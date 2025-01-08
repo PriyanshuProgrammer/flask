@@ -37,14 +37,14 @@ prompt_template_name = PromptTemplate(
 chain = LLMChain(llm=llm, prompt = prompt_template_name)
 
 def Agent(query):
-    response =  chain.run(query)
-    return response[:1000]
+    return chain.run(query)
+  
 
 app = Flask(__name__)
 
 CORS(app)
 
-@app.route('/',methods = ['POST'])
+@app.route('/agent',methods = ['POST'])
 def home():
     # response = Agent()
     data = json.loads(request.data)
@@ -57,3 +57,6 @@ def test():
     return jsonify({
         "message":"Server is Working...."
     })
+
+if __name__ == "__main__":
+    app.run()
